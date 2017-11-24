@@ -1,0 +1,65 @@
+diff -Naur stlink-master/configure.ac stlink-master-win/configure.ac
+--- stlink-master/configure.ac	2013-03-22 13:52:33 +0000
++++ stlink-master-win/configure.ac	2013-03-24 09:25:24 +0000
+@@ -20,10 +20,7 @@
+ AC_CHECK_HEADERS(sys/poll.h)
+ AC_REPLACE_FUNCS(mmap)
+ 
+-# Checks for libraries.
+-PKG_CHECK_MODULES(USB, libusb-1.0 >= 1.0.0,,
+-                 AC_MSG_ERROR([*** Required libusb-1.0 >= 1.0.0 not installed ***]))
+-AC_CHECK_LIB([usbpath],[usb_path2devnum],,,-lusb)
++LIBS="-lusb-1.0"
+ 
+ LIBS="$LIBS $USB_LIBS"
+ CFLAGS="$CFLAGS $USB_CFLAGS"
+diff -Naur stlink-master/gdbserver/gdb-server.c stlink-master-win/gdbserver/gdb-server.c
+--- stlink-master/gdbserver/gdb-server.c	2013-03-22 13:52:33 +0000
++++ stlink-master-win/gdbserver/gdb-server.c	2013-03-24 09:26:40 +0000
+@@ -1,5 +1,5 @@
+ /* -*- tab-width:8 -*- */
+-#define DEBUG 0
++//#define DEBUG 0
+ /*
+  Copyright (C)  2011 Peter Zotov <whitequark@whitequark.org>
+  Use of this source code is governed by a BSD-style
+@@ -165,6 +165,10 @@
+ int main(int argc, char** argv) {
+ 
+ 	stlink_t *sl = NULL;
++
++  printf("STLINK GDB Server v0.5.6 (" __DATE__ " " __TIME__ ")\n");
++  printf("Many thanks to the STLINK development team.\n");
++  printf("(https://github.com/texane/stlink)\n\n");
+ 
+ 	st_state_t state;
+ 	memset(&state, 0, sizeof(state));
+@@ -185,7 +189,7 @@
+     }
+ 
+     connected_stlink = sl;
+-    signal(SIGINT, &cleanup);
++    //signal(SIGINT, &cleanup);
+ 
+ 	printf("Chip ID is %08x, Core ID is  %08x.\n", sl->chip_id, sl->core_id);
+ 
+@@ -706,7 +710,8 @@
+ 		int status = gdb_recv_packet(client, &packet);
+ 		if(status < 0) {
+ 			fprintf(stderr, "cannot recv: %d\n", status);
+-			return 1;
++			printf("GDB disconnected.\n");
++      return 1;
+ 		}
+ 
+ 		#ifdef DEBUG
+@@ -1251,7 +1256,8 @@
+ 			int result = gdb_send_packet(client, reply);
+ 			if(result != 0) {
+ 				fprintf(stderr, "cannot send: %d\n", result);
+-				free(reply);
++				printf("GDB disconnected.\n");
++        free(reply);
+ 				free(packet);
+ 				return 1;
+ 			}
