@@ -1,12 +1,12 @@
-### Developer Pack for ARM Cortex_M
+# Developer Pack for ARM Cortex_M
 
-# Цель: Cобрать инструменты в одном месте для
+### Цель: Cобрать инструменты в одном месте для
 * Сборки
 * Линковки
 * Прошивки MCU
 * и Отладки
 
-# Подготовка к работе
+### Подготовка к работе
 1. Скачать или выгрузить проект в корень C:\ 
 2. Открываем редактор Переменные Окружения
 * $sysdm.cpl
@@ -26,7 +26,7 @@ $arm-none-eabi-gcc
 $make
 ```
 
-# Про отладку
+### Про отладку
 Если у вас программатор ST_LINK V1 необходимо заменить драйвер на winusb. 
 * >	http://zadig.akeo.ie
 
@@ -44,7 +44,7 @@ $ st-util -p 4242
 * >	http://microsin.net/programming/ARM/openocd-manual-part1.html
 * >	http://false.ekta.is/2016/01/using-netbeans-for-stm32-development-with-openocd/
 
-## Ликбез
+### Ликбез
 * Сценарий Линковщика
 * https://www.opennet.ru/docs/RUS/gnu_ld/gnuld-3.html
 * EABI 
@@ -54,7 +54,7 @@ $ st-util -p 4242
 * Make for Windows		
 * http://gnuwin32.sourceforge.net/packages/make.htm
 	
-## ARM Specific Compiler Options 
+### ARM Specific Compiler Options 
 ```
 -mcpu=cortex-m3 -mthumb -mno-thumb-interwork -mfpu=vfp -msoft-float -mfix-cortex-m3-ldrd
 Для отладки через Semihost: вывод printf
