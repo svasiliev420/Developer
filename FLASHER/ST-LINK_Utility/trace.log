@@ -1,0 +1,7 @@
+cErrLog::SetLogTraceOn
+STLinkUSBDriver.dll loaded
+No ST-LINK device detected on the USB
+The detected STM32 firmware version (V0.J0) does not support the DAP read command.
+No ST-LINK device detected on the USB
+The detected STM32 firmware version (V0.J0) does not support the DAP read command.
+W at 0xe0042004: 0x00000000
